@@ -1,5 +1,5 @@
 import React from 'react'
-import {CityLogo} from '../../ui/Icons';
+import {CityLogo} from '../ui/Icons';
 export default function Footer() {
     return (
         <footer className ="bck_blue">

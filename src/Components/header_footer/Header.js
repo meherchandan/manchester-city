@@ -3,7 +3,7 @@ import AppBar from '@material-ui/core/AppBar';
 import ToolBar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 import {Link} from 'react-router-dom';
-import {CityLogo} from './../../ui/Icons';
+import {CityLogo} from '../ui/Icons';
 export default class Header extends Component {
     render() {
         return (

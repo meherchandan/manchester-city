@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Animate from 'react-move/Animate'
 import {easePolyOut} from 'd3-ease'
-import featured_player from './../../Resources/images/featured_player.png';
+import featured_player from '../../../Resources/images/featured_player.png';
 export default class FeaturedText extends Component {
 
     animateNumber = ()=>(

@@ -2,13 +2,25 @@
   "name": "manchester-city",
   "version": "0.1.0",
   "private": true,
+  "devDependencies": {
+    "nodeman": "^1.1.2"
+  },
   "dependencies": {
     "@material-ui/core": "^4.9.1",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.4.0",
     "@testing-library/user-event": "^7.2.1",
+    "axios": "^0.19.2",
     "d3-ease": "^1.0.6",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
     "firebase": "^7.8.0",
+    "jsonwebtoken": "^8.5.1",
+    "knex": "^0.20.8",
+    "md5": "^2.2.1",
+    "mysql": "^2.18.1",
+    "objection": "^2.1.2",
+    "objection-password": "^2.0.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-firebase-file-uploader": "^2.4.3",
@@ -21,7 +33,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "server": "react-scripts build; node ./src/server/main.js",
+    "onlyserver": " node ./src/server/main.js"
   },
   "eslintConfig": {
     "extends": "react-app"
