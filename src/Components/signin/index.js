@@ -68,6 +68,7 @@ export default class SignIn extends Component {
                 password: data.password     
             }).then((res)=>{
                 localStorage.setItem('token', res.data.token);
+                this.props.history.push('/dashboard')
             }).catch((err)=>{
                 this.setState({formError:true});
             })

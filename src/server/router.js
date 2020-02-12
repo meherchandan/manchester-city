@@ -5,6 +5,7 @@ const Matches  = require('./db/models/Matches');
 const Promotions = require('./db/models/Promotions')
 const Users = require('./db/models/Users');
 const jwt = require('jsonwebtoken')
+const  auth =require ('./middleware/auth');
 router.get('/matches',(req,res)=>{
     Matches.query()
     .orderBy('date','desc')
@@ -56,13 +57,18 @@ router.post('/signin',async (req,res)=>{
         }
     const passwordValid = await user.verifyPassword(password);
     if(passwordValid){
-        const token = generateAuthToken(username);
+        const token = generateAuthToken(username,password);
         console.log(token);
         res.json({token});
     }
     else{
         res.status(403);
         res.json({error:"Invalid username/password"});
+    }
+})
+router.get('/checkvalidtoken',auth,(req,res)=>{
+    if(req.user){
+        res.json({message:'success'});
     }
 })
 
@@ -88,8 +94,8 @@ router.post('/adduser',async (req,res)=>{
 
 })
 
-const generateAuthToken = (email)=>{
-    const token = jwt.sign({email: email}, process.env.JWT_KEY)
+const generateAuthToken = (email,password)=>{
+    const token = jwt.sign({email,password}, process.env.JWT_KEY)
     return token;
 
 }

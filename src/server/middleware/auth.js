@@ -3,16 +3,29 @@ const Users = require('../db/models/Users')
 
 const auth = async(req, res, next) => {
     const token = req.header('Authorization').replace('Bearer ', '')
-    const data = jwt.verify(token, process.env.JWT_KEY)
+
+    if (token.includes('null')) {
+       return res.status(401).send({ error: 'Not authorized to access this resource' })
+    }
+    const data = await jwt.verify(token, process.env.JWT_KEY);
+    if(!data.email){
+        res.status(401).send({ error: 'Not authorized to access this resource' })
+
+    }
     try {
-        const useremail = await Users.findOne({ useremail: data.email, 'tokens.token': token })
-        if (!useremail) {
+        const user = await Users.query().findOne({ useremail: data.email})
+        if (!user) {
             throw new Error()
         }
-        req.user = useremail
+        const passwordValid = await user.verifyPassword(data.password);
+        if(!passwordValid){
+            throw new Error();
+        }
+        req.user = user.useremail
         req.token = token
         next()
     } catch (error) {
+        console.log("error occured")
         res.status(401).send({ error: 'Not authorized to access this resource' })
     }
 
