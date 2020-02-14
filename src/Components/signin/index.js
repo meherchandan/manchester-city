@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import FormFields from '../ui/FormFields'
 import {validate} from '../ui/misc';
 import axios from 'axios';
-import {withRouter} from 'react-router-dom'
+import {withRouter} from 'react-router-dom';
+import {updateState} from '../../../src';
 class SignIn extends Component {
     state={
         formError:false,
@@ -56,12 +57,11 @@ class SignIn extends Component {
         },2000)
     }
     componentDidUpdate(prevProps) {
-        // will be true
         const locationChanged =
-          this.props.location !== prevProps.location;
-          return locationChanged;
+        this.props.location !== prevProps.location;
+        return locationChanged;
     
-      }
+    }
     submitForm(e){
         e.preventDefault();
         let data = {};
@@ -76,7 +76,8 @@ class SignIn extends Component {
                 password: data.password     
             }).then((res)=>{
                 localStorage.setItem('token', res.data.token);
-                this.props.history.push('/dashboard')
+                updateState(true);
+                this.props.history.push('/dashboard');
             }).catch((err)=>{
                 this.setState({formError:true});
             })

@@ -7,7 +7,15 @@ const auth = async(req, res, next) => {
     if (token.includes('null')) {
        return res.status(401).send({ error: 'Not authorized to access this resource' })
     }
-    const data = await jwt.verify(token, process.env.JWT_KEY);
+    let data;
+    try{
+
+        data = await jwt.verify(token, process.env.JWT_KEY);
+    }catch(err){
+        
+        res.status(401).end()
+    }
+
     if(!data.email){
         res.status(401).send({ error: 'Not authorized to access this resource' })
 

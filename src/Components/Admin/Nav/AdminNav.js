@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import {Link } from 'react-router-dom';
 import ListItem from '@material-ui/core/ListItem';
 import { withRouter } from "react-router-dom";
+import {updateState} from '../../../../src';
  class AdminNav extends Component {
     links=[
         {
@@ -41,7 +42,8 @@ import { withRouter } from "react-router-dom";
     }
     logoutHandler = ()=>{
         localStorage.removeItem('token');
-        this.props.history.push("/sign_in")
+        updateState(false);
+        // this.props.history.push("/sign_in")
     }
     componentDidUpdate(prevProps) {
         // will be true
@@ -51,7 +53,6 @@ import { withRouter } from "react-router-dom";
     
       }
       render(){
-          console.log(this.props);
           return (
               <div>
                   {this.renderItems()}

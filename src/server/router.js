@@ -7,9 +7,10 @@ const Users = require('./db/models/Users');
 const jwt = require('jsonwebtoken')
 const  auth =require ('./middleware/auth');
 router.get('/matches',(req,res)=>{
+    let count = req.query.count||6;
     Matches.query()
     .orderBy('date','desc')
-    .limit(6)
+    .limit(count)
     .then(matches => {
         console.log(matches);
         res.json(matches)
@@ -68,7 +69,7 @@ router.post('/signin',async (req,res)=>{
 })
 router.get('/checkvalidtoken',auth,(req,res)=>{
     if(req.user){
-        res.json({message:'success'});
+        res.status(200).end();
     }
 })
 
