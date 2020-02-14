@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { Component } from 'react'
 import {Link } from 'react-router-dom';
-import { render } from '@testing-library/react';
 import ListItem from '@material-ui/core/ListItem';
-export default function AdminNav() {
-    const links=[
+import { withRouter } from "react-router-dom";
+ class AdminNav extends Component {
+    links=[
         {
             title:'Matches',
             linkto:'admin_matches',
@@ -21,17 +21,17 @@ export default function AdminNav() {
             linkto:'admin_players/edit_player',
         }
     ]
-    const style = {
+    style = {
         color:'#ffffff',
         fontWeight:'300',
         borderBottom:'1px solid #353535'
     }
-    const renderItems = ()=>{
+    renderItems = ()=>{
         return (
-            links.map((link)=>(
+            this.links.map((link)=>(
                 <Link to={link.linkto} key={link.title}>
                     <ListItem button
-                    style={style}>
+                    style={this.style}>
                         {link.title}
                     </ListItem>
                 </Link>
@@ -39,18 +39,31 @@ export default function AdminNav() {
 
         )
     }
-    const logoutHandler = ()=>{
+    logoutHandler = ()=>{
         localStorage.removeItem('token');
+        this.props.history.push("/sign_in")
     }
-    return (
-        <div>
-            {renderItems()}
-            {localStorage.getItem('token')?
-            <ListItem
-            button 
-             style={style} 
-             onClick={()=>{logoutHandler()}}>Logout
-            </ListItem>:''}
-        </div>
-    )
+    componentDidUpdate(prevProps) {
+        // will be true
+        const locationChanged =
+          this.props.location !== prevProps.location;
+          return locationChanged;
+    
+      }
+      render(){
+          console.log(this.props);
+          return (
+              <div>
+                  {this.renderItems()}
+                  {localStorage.getItem('token')?
+                  <ListItem
+                  button 
+                   style={this.style} 
+                   onClick={()=>{this.logoutHandler()}}>Logout
+                  </ListItem>:''}
+              </div>
+          )
+
+          }
 }
+export default withRouter(AdminNav);

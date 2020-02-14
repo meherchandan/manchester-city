@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import FormFields from '../ui/FormFields'
 import {validate} from '../ui/misc';
 import axios from 'axios';
-export default class SignIn extends Component {
+import {withRouter} from 'react-router-dom'
+class SignIn extends Component {
     state={
         formError:false,
         formSuccess:'',
@@ -54,6 +55,13 @@ export default class SignIn extends Component {
             this.setState({formSuccess:''})
         },2000)
     }
+    componentDidUpdate(prevProps) {
+        // will be true
+        const locationChanged =
+          this.props.location !== prevProps.location;
+          return locationChanged;
+    
+      }
     submitForm(e){
         e.preventDefault();
         let data = {};
@@ -120,3 +128,4 @@ export default class SignIn extends Component {
         )
     }
 }
+export default withRouter(SignIn);

@@ -28,13 +28,13 @@ export default class routes extends Component {
     console.log(this.state.auth);
     const vatt = this.authentication();
     console.log("vatt",vatt);
-    const test = this.authentication()?<Dashboard />:<SignIn />
+    const test = vatt?<Dashboard />:<Redirect to="/sign_in" />
     return (
       <Layout >
         <Switch>
             <Route exact component={SignIn}  path="/sign_in" />
             <Route  path="/dashboard"
-            component={Dashboard} 
+            // component={Dashboard} 
             render={()=>test}
             // onEnter={(nextState, replace, callback) => this.requireAuth(nextState, replace, callback)}
               />
