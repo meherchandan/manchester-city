@@ -2,6 +2,8 @@ const express = require('express');
 
 const router = express.Router();
 const Matches  = require('./db/models/Matches');
+const Teams  = require('./db/models/Teams');
+const Players = require('./db/models/Players');
 const Promotions = require('./db/models/Promotions')
 const Users = require('./db/models/Users');
 const jwt = require('jsonwebtoken')
@@ -12,8 +14,54 @@ router.get('/matches',(req,res)=>{
     .orderBy('date','desc')
     .limit(count)
     .then(matches => {
-        console.log(matches);
         res.json(matches)
+    })
+})
+router.get('/matches/:id',(req,res)=>{
+    const id =  parseInt(req.params.id);
+    Matches.query()
+    .orderBy('date','desc')
+    .where("id","=",id)
+    .then(match => {
+        console.log("matches",match);
+        res.json(match)
+    })
+})
+
+router.post('/updatematch/:id',(req,res)=>{
+    const id =  parseInt(req.params.id);
+    Matches.query().patchAndFetchById(id,{
+        ...req.body.match
+    })
+    
+    .then(match => {
+        console.log("matche",match);
+        res.json(match)
+    })
+})
+router.post('/addmatch',(req,res)=>{
+    Matches.query().insert({
+        ...req.body.match
+    })
+    
+    .then(match => {
+        console.log("match",match);
+        res.json(match)
+    })
+})
+router.get('/players',(req,res)=>{
+    Players.query()
+    .orderBy('lastname','asc')
+    .then(players => {
+        res.json(players)
+    })
+})
+router.get('/teams',(req,res)=>{
+    Teams.query()
+    .orderBy('name','asc')
+    .then(team => {
+        console.log(team);
+        res.json(team)
     })
 })
 

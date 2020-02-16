@@ -24,8 +24,6 @@ export default class Blocks extends Component {
         axios.get('/api/matches')
             .then( (response) =>{
                 this.setState({matches:response.data})
-                console.log(response.data);
-                window.data= response.data;
             })
     }
     

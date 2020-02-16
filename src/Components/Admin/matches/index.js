@@ -4,7 +4,6 @@ import AdminLayout from '../../../Hoc/AdminLayout';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
@@ -24,8 +23,6 @@ export default class AdminMatches extends Component {
             }})
             .then( (response) =>{
                 this.setState({isLoading:false,matches:response.data})
-                console.log(response.data);
-                window.data= response.data;
             })
     }
     render() {

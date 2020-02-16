@@ -7,19 +7,19 @@ import {updateState} from '../../../../src';
     links=[
         {
             title:'Matches',
-            linkto:'admin_matches',
+            linkto:'/admin_matches',
         },
         {
             title:'Add Match',
-            linkto:'admin_matches/edit_match',
+            linkto:'/admin_matches/add_match',
         },
         {
             title:'Player',
-            linkto:'admin_players',
+            linkto:'/admin_players',
         },
         {
             title:'Add Players',
-            linkto:'admin_players/edit_player',
+            linkto:'/admin_players/edit_player',
         }
     ]
     style = {
